@@ -27,3 +27,12 @@ jobs:
       # Sets up and installs Golang
       - name: Setup Go environment
         uses: actions/setup-go@v2.1.3
+      # Run the go compile tooling using command line go build
+      - name: Build
+        run: go build -v ./...
+      # Run unit tests that are available 
+      - name: Test
+        # Notice the | ? This is used to run MULTIPLE command lines in one run.
+        run: |
+          go test -v ./...
+          echo Complete

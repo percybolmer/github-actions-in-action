@@ -62,8 +62,7 @@ jobs:
           echo Complete
         # The tests are using environment variables so we need to add those 
         env:
-          # The host should match the name of the service
-          POSTGRES_HOST: postgres
+          POSTGRES_HOST: localhost
           POSTGRES_USER: user
           POSTGRES_PASS: qwerty
           POSTGRES_PORT: 5432

@@ -27,6 +27,9 @@ jobs:
       # Sets up and installs Golang
       - name: Setup Go environment
         uses: actions/setup-go@v2.1.3
+      # Go get to fetch external dependecny like the PostgeSQL driver
+      - name: go get
+        run: go get -v -u ./...
       # Run the go compile tooling using command line go build
       - name: Build
         run: go build 

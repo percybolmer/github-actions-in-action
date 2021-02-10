@@ -20,6 +20,27 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
+    #Add services, aka Docker containers that runs in paralell
+    services:
+      #Name the service
+      postgres:
+        #Set the Docker image to use, find images on Dockerhub.com
+        image: postgres:12
+        # Set environment variables
+        env: 
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: qwerty
+          POSTGRES_DB: workflow
+        # Expose ports
+        ports: 
+          - 5432:5432
+        # Add some health options to make sure PostgreSQL is running fully before moving on
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -39,3 +60,11 @@ jobs:
         run: |
           go test -v
           echo Complete
+        # The tests are using environment variables so we need to add those 
+        env:
+          POSTGRES_HOST: postpgres
+          POSTGRES_USER: user
+          POSTGRES_PASS: qwerty
+          POSTGRES_PORT: 5432
+          POSTGRES_DB: workflow
+
